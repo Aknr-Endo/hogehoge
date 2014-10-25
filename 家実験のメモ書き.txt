@@ -1,12 +1,64 @@
+▼zabbix2.2導入簡易メモ
+	1.RHELかCentでOS立てる(6.x系を想定)
+	2.SELinux、IPtablesを切る
+	3.以下のコマンドで、ZabbixSIAのリポジトリを追加する
+		# rpm -ivh http://repo.zabbix.com/zabbix/2.2/rhel/6/x86_64/zabbix-release-2.2-1.el6.noarch.rpm
+	4.mysqlをyumでサクッとインストール
+		# yum install mysql-server
+	5./etc/my.cnfの[mysqld]セクションに下記を追記
+		-----------
+		default-character-set=utf8
+		skip-character-set-client-handshake
+		
+		innodb_file_per_table
+		innodb_buffer_pool_size=64M
+		innodb_log_file_size=16M
+		innodb_log_files_in_group=2
+		-----------
+	(zabbixのインストールをyumでサクッと入れるのかrpm取ってきて都度都度いれるのか…)
+	
+	.mysqlのサービスを上げる
+	.mysqlにログイン
+		# mysql -uroot
+	.DBの初期化を行う
+		mysql> create database zabbix character set utf8 collate utf8_bin;
+		mysql> grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbixpassword';
+		mysql> exit
+	.スキーマへのデータインポートを行う
+		# cd /usr/share/doc/zabbix-server-mysql-2.2.6/create
+		# mysql -uroot zabbix < schema.sql
+		# mysql -uroot zabbix < images.sql
+		# mysql -uroot zabbix < data.sql
+	.zabbix_server.confを修正する
+		# vi /etc/zabbix/zabbix_server.conf
+			「DBPassword=zabbixpassword」と追記
+	.PHP設定の修正
+		# vi /etc/httpd/conf.d/zabbix.conf
+			php_value date.timezone Asia/Tokyoを追記
+			php_value date.timezone Europe/Rigaをコメントアウト
+	.apacheを起動
+	.下記のURLにアクセス
+		http://(zabbixサーバーのFQDN)/zabbix
+	.GUIで初期設定を行っていく
+		－welcome画面では「Next」をクリック
+		－check of pre-requisites画面でエラーがないことを確認して「Next」をクリック。
+		  有ったら該当箇所に応じて対応
+		－configure DB connection画面ではDBへの接続情報を入力して
+		  「Test connection」をクリック。OKが出たら「Next」をクリック。
+		－zabbix server details画面では、そのまま「Next」をクリック。
+		－Pre-Installation summary画面で設定内容を確認して、問題なければ「Next」をクリック。
+		－Install画面で「Finish」をクリック。
+	.ログイン画面が表示されたら、下記のアカウントでzabbixにログインする
+		Username:Admin
+		Password:zabbix
+
+
 ▼apacheの起動時に出たエラーの対処メモ
 	・ httpd: apr_sockaddr_info_get() failed for ～
 		→/etc/hostsの127.0.0.1のホスト名と/etc/sysconfig/networkのHOSTNAMEを一致させる
 	・ Could not reliably determine the server's fully qualified domain name
 		→/etc/httpd/conf/httpd.confのServerNameを適切に変更
 		
-▼zabbix簡単導入メモ
-	1.RHELかCentでOS立てる
-	2.
 
 
 

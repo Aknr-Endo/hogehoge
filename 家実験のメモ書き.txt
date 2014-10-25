@@ -1,0 +1,12 @@
+▼apacheの起動時に出たエラーの対処メモ
+	・ httpd: apr_sockaddr_info_get() failed for ～
+		→/etc/hostsの127.0.0.1のホスト名と/etc/sysconfig/networkのHOSTNAMEを一致させる
+	・ Could not reliably determine the server's fully qualified domain name
+		→/etc/httpd/conf/httpd.confのServerNameを適切に変更
+		
+▼zabbix簡単導入メモ
+	1.RHELかCentでOS立てる
+	2.
+
+
+

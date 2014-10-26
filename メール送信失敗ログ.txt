@@ -9,3 +9,7 @@ Oct 27 00:50:02 test-zabbix postfix/smtp[2393]: connect to alt1.gmail-smtp-in.l.
 Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: 345E4E169F: host alt1.gmail-smtp-in.l.google.com[74.125.201.26] refused to talk to me: 421 Cannot connect to SMTP server 74.125.201.26 (74.125.201.26:25), NB connect error 1460
 Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: connect to alt2.gmail-smtp-in.l.google.com[2607:f8b0:4002:c09::1a]:25: Network is unreachable
 Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: 345E4E169F: to=<wareranitekinashi@gmail.com>, relay=none, delay=61, delays=0.06/0.01/61/0, dsn=4.4.1, status=deferred (connect to alt2.gmail-smtp-in.l.google.com[2607:f8b0:4002:c09::1a]:25: Network is unreachable)
+
+
+=====================
+

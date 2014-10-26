@@ -15,31 +15,41 @@
 		innodb_log_file_size=16M
 		innodb_log_files_in_group=2
 		-----------
-	(zabbixのインストールをyumでサクッと入れるのかrpm取ってきて都度都度いれるのか…)
-	
-	.mysqlのサービスを上げる
-	.mysqlにログイン
+	6.zabbix関連のパッケージをyumで入れる。とりあえずzabbixを動かすなら下記があればＯＫ
+		# yum install zabbix
+		# yum install zabbix-server
+		# yum install zabbix-agent
+		# yum install zabbix-get
+		# yum install zabbix-sender
+		# yum install zabbix-web-mysql
+		# yum install zabbix-web-japanese
+	7.mysqlのサービスを上げる
+		# service mysqld start
+	8.mysqlにログイン
 		# mysql -uroot
-	.DBの初期化を行う
+	9.DBの初期化を行う
 		mysql> create database zabbix character set utf8 collate utf8_bin;
 		mysql> grant all privileges on zabbix.* to zabbix@localhost identified by 'zabbixpassword';
 		mysql> exit
-	.スキーマへのデータインポートを行う
+	10.スキーマへのデータインポートを行う
 		# cd /usr/share/doc/zabbix-server-mysql-2.2.6/create
 		# mysql -uroot zabbix < schema.sql
 		# mysql -uroot zabbix < images.sql
 		# mysql -uroot zabbix < data.sql
-	.zabbix_server.confを修正する
+	11.zabbix_server.confを修正する
 		# vi /etc/zabbix/zabbix_server.conf
 			「DBPassword=zabbixpassword」と追記
-	.PHP設定の修正
+	12.zabbix-serverを起動する
+		# service zabbix-server start
+	13.PHP設定の修正
 		# vi /etc/httpd/conf.d/zabbix.conf
 			php_value date.timezone Asia/Tokyoを追記
 			php_value date.timezone Europe/Rigaをコメントアウト
-	.apacheを起動
-	.下記のURLにアクセス
+	14.apacheを起動
+		# service httpd start
+	15.下記のURLにアクセス
 		http://(zabbixサーバーのFQDN)/zabbix
-	.GUIで初期設定を行っていく
+	16.GUIで初期設定を行っていく
 		－welcome画面では「Next」をクリック
 		－check of pre-requisites画面でエラーがないことを確認して「Next」をクリック。
 		  有ったら該当箇所に応じて対応
@@ -48,7 +58,7 @@
 		－zabbix server details画面では、そのまま「Next」をクリック。
 		－Pre-Installation summary画面で設定内容を確認して、問題なければ「Next」をクリック。
 		－Install画面で「Finish」をクリック。
-	.ログイン画面が表示されたら、下記のアカウントでzabbixにログインする
+	17.ログイン画面が表示されたら、下記のアカウントでzabbixにログインする
 		Username:Admin
 		Password:zabbix
 

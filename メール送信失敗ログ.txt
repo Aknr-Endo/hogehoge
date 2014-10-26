@@ -1,0 +1,11 @@
+Oct 27 00:49:32 test-zabbix postfix/smtpd[2389]: connect from localhost[::1]
+Oct 27 00:49:32 test-zabbix postfix/smtpd[2389]: 345E4E169F: client=localhost[::1]
+Oct 27 00:49:32 test-zabbix postfix/cleanup[2392]: 345E4E169F: message-id=<20141026154932.345E4E169F@test-zabbix.localdomain>
+Oct 27 00:49:32 test-zabbix postfix/qmgr[1065]: 345E4E169F: from=<zabbix@company.com>, size=896, nrcpt=1 (queue active)
+Oct 27 00:49:32 test-zabbix postfix/smtpd[2389]: disconnect from localhost[::1]
+Oct 27 00:49:32 test-zabbix postfix/smtp[2393]: connect to gmail-smtp-in.l.google.com[2001:4860:400b:c01::1a]:25: Network is unreachable
+Oct 27 00:50:02 test-zabbix postfix/smtp[2393]: 345E4E169F: host gmail-smtp-in.l.google.com[74.125.28.27] refused to talk to me: 421 Cannot connect to SMTP server 74.125.28.27 (74.125.28.27:25), NB connect error 1460
+Oct 27 00:50:02 test-zabbix postfix/smtp[2393]: connect to alt1.gmail-smtp-in.l.google.com[2607:f8b0:4001:c01::1a]:25: Network is unreachable
+Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: 345E4E169F: host alt1.gmail-smtp-in.l.google.com[74.125.201.26] refused to talk to me: 421 Cannot connect to SMTP server 74.125.201.26 (74.125.201.26:25), NB connect error 1460
+Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: connect to alt2.gmail-smtp-in.l.google.com[2607:f8b0:4002:c09::1a]:25: Network is unreachable
+Oct 27 00:50:32 test-zabbix postfix/smtp[2393]: 345E4E169F: to=<wareranitekinashi@gmail.com>, relay=none, delay=61, delays=0.06/0.01/61/0, dsn=4.4.1, status=deferred (connect to alt2.gmail-smtp-in.l.google.com[2607:f8b0:4002:c09::1a]:25: Network is unreachable)
